@@ -1,0 +1,45 @@
+DEPENDENCIES
+  cookbooks
+    path: .
+    metadata: true
+  mesos
+    git: git://github.com/mdsol/mesos_cookbook.git
+    revision: de2e33b5b7d98fdb070a277b5a96d815a177b744
+  mysql
+  nginx (~> 2.6)
+
+GRAPH
+  apt (2.9.2)
+  bluepill (2.4.1)
+    rsyslog (~> 2.0)
+  build-essential (2.2.4)
+  cookbooks (0.1.0)
+  java (1.39.0)
+    apt (>= 0.0.0)
+  mesos (3.5.1)
+    apt (>= 0.0.0)
+    java (>= 0.0.0)
+    yum (~> 3.0)
+  mysql (6.1.2)
+    smf (>= 0.0.0)
+    yum-mysql-community (>= 0.0.0)
+  nginx (2.7.6)
+    apt (~> 2.2)
+    bluepill (~> 2.3)
+    build-essential (~> 2.0)
+    ohai (~> 2.0)
+    runit (~> 1.2)
+    yum-epel (~> 0.3)
+  ohai (2.0.4)
+  packagecloud (0.1.1)
+  rbac (1.0.3)
+  rsyslog (2.2.0)
+  runit (1.7.6)
+    packagecloud (>= 0.0.0)
+  smf (2.2.7)
+    rbac (>= 1.0.1)
+  yum (3.9.0)
+  yum-epel (0.6.5)
+    yum (~> 3.2)
+  yum-mysql-community (0.1.21)
+    yum (>= 3.2)
