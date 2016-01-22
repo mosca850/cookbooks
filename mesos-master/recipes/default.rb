@@ -6,4 +6,5 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+include_recipe 'exhibitor::default'
 include_recipe 'mesos::master'
