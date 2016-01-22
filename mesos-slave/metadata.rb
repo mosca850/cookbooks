@@ -1,0 +1,7 @@
+name             'mesos-slave'
+maintainer       'YOUR_NAME'
+maintainer_email 'YOUR_EMAIL'
+license          'All rights reserved'
+description      'Installs/Configures mesos-slave'
+long_description 'Installs/Configures mesos-slave'
+version          '0.1.0'
