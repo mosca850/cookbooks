@@ -1,14 +1,35 @@
 DEPENDENCIES
+  exhibitor
+    git: git://github.com/SimpleFinance/chef-exhibitor.git
+    revision: 04bfb1892ed3f26bffb7b29b8674a91d3a9f5fff
+    branch: master
   mesos
     git: git://github.com/mdsol/mesos_cookbook.git
     revision: de2e33b5b7d98fdb070a277b5a96d815a177b744
+  zookeeper
 
 GRAPH
   apt (2.9.2)
+  build-essential (2.2.4)
+  exhibitor (0.7.1)
+    build-essential (~> 2.2)
+    java (~> 1.35)
+    runit (~> 1.7)
+    zookeeper (~> 3.0)
   java (1.39.0)
     apt (>= 0.0.0)
+  magic (1.5.0)
   mesos (3.5.1)
     apt (>= 0.0.0)
     java (>= 0.0.0)
     yum (~> 3.0)
+  packagecloud (0.1.1)
+  runit (1.7.6)
+    packagecloud (>= 0.0.0)
   yum (3.9.0)
+  zookeeper (3.0.1)
+    apt (>= 0.0.0)
+    build-essential (>= 2.0.2)
+    java (>= 0.0.0)
+    magic (~> 1.1)
+    runit (>= 0.0.0)
