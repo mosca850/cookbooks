@@ -27,7 +27,7 @@ when 'debian'
     version "#{node['mesos']['version']}*"
   end
 when 'rhel'
-  %w( unzip libcurl subversion ).each do |pkg|
+  %w( unzip libcurl subversion zookeeper).each do |pkg|
     yum_package pkg do
       action :install
     end

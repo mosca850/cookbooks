@@ -21,4 +21,9 @@ when 'rhel'
     baseurl "http://repos.mesosphere.io/el/#{version}/$basearch/"
     gpgkey 'https://repos.mesosphere.io/el/RPM-GPG-KEY-mesosphere'
   end
+  yum_repository 'cloudera-cdh4' do
+    description 'cloudera-cdh4'
+    baseurl "http://archive.cloudera.com/cdh4/redhat/6/x86_64/cdh/4/"
+    gpgkey 'http://archive.cloudera.com/cdh4/redhat/6/x86_64/cdh/RPM-GPG-KEY-cloudera'
+  end
 end
