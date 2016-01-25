@@ -78,13 +78,12 @@ end
 default['mesos']['zookeeper_path']                      = 'mesos'
 
 # Flag to enable Zookeeper ensemble discovery via Netflix Exhibitor.
-default['mesos']['zookeeper_exhibitor_discovery']       = false
+default['mesos']['zookeeper_exhibitor_discovery']       = true
 
 # Netflix Exhibitor ZooKeeper ensemble url.
-default['mesos']['zookeeper_exhibitor_url']             = nil
+default['mesos']['zookeeper_exhibitor_url']             = "internal-exhibitor-680464962.eu-west-1.elb.amazonaws.com:8080"
 override['exhibitor']['cli']['configtype'] = 's3'
 override['exhibitor']['cli']['s3config'] = 'tt-mesos-cluster-ventu:master'
-override['exhibitor']['zookeeper_exhibitor_url'] = "internal-exhibitor-680464962.eu-west-1.elb.amazonaws.com:8080"
 override['exhibitor']['cli']['s3region'] = 'eu-west-1'
 override[:zookeeper][:version] = '3.4.6'
 override[:zookeeper][:mirror] = 'http://www.eu.apache.org/dist/zookeeper/'
