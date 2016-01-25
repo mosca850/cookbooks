@@ -27,7 +27,7 @@ when 'debian'
     version "#{node['mesos']['version']}*"
   end
 when 'rhel'
-  %w( unzip libcurl subversion zookeeper).each do |pkg|
+  %w( unzip libcurl subversion ).each do |pkg|
     yum_package pkg do
       action :install
     end
@@ -84,74 +84,10 @@ template 'mesos-slave-init' do
   variables(name:    'mesos-slave',
             wrapper: '/etc/mesos-chef/mesos-slave')
 end
-case node['mesos']['init']
-when 'upstart'
-  template '/etc/default/zookeeper' do
-    source 'environment-defaults.erb'
-    owner 'zookeeper'
-    group 'zookeeper'
-    action :create
-    mode '0644'
-    notifies :restart, 'service[zookeeper]', :delayed
-  end
-  template '/etc/init/zookeeper.conf' do
-    source 'zookeeper.upstart.erb'
-    owner 'root'
-    group 'root'
-    action :create
-    mode '0644'
-    notifies :restart, 'service[zookeeper]', :delayed
-  end
-  service 'zookeeper' do
-    provider Chef::Provider::Service::Upstart
-    supports :status => true, :restart => true, :reload => true
-    action :enable
-  end
-when 'runit'
-  # runit_service does not install runit itself
-  include_recipe "runit"
-
-  runit_service 'zookeeper' do
-    default_logger true
-    options(
-      exec: executable_path
-    )
-    action [:enable, :start]
-  end
-when 'systemd'
-  template '/etc/default/zookeeper' do
-    source 'environment-defaults.erb'
-    owner 'zookeeper'
-    group 'zookeeper'
-    action :create
-    mode '0644'
-    notifies :restart, 'service[zookeeper]', :delayed
-  end
-  template '/etc/init.d/zookeeper' do
-    source 'zookeeper.sysv.erb'
-    owner 'root'
-    group 'root'
-    action :create
-    mode '0755'
-    notifies :restart, 'service[zookeeper]', :delayed
-  end
-
-  service_provider = value_for_platform_family(
-    'rhel'    => Chef::Provider::Service::Init::Redhat,
-    'default' => Chef::Provider::Service::Init::Debian
-  )
-
-  service 'zookeeper' do
-    provider service_provider
-    supports :status => true, :restart => true, :reload => true
-    action :enable
-  end
-when 'exhibitor'
-  Chef::Log.info('Assuming Exhibitor will start up Zookeeper.')
-else
-  Chef::Log.error('You specified an invalid service style for Zookeeper, but I am continuing.')
-end
+include_recipe 'exhibitor::default'
+include_recipe 'exhibitor::service'
 # Reload systemd on template change
+
 execute 'systemctl-daemon-reload' do
   command '/bin/systemctl --system daemon-reload'
   subscribes :run, 'template[mesos-master-init]'

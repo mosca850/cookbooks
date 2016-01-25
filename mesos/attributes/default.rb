@@ -82,3 +82,7 @@ default['mesos']['zookeeper_exhibitor_discovery']       = false
 
 # Netflix Exhibitor ZooKeeper ensemble url.
 default['mesos']['zookeeper_exhibitor_url']             = nil
+override['exhibitor']['cli']['configtype'] = 's3'
+override['exhibitor']['cli']['s3config'] = 'tt-mesos-cluster-ventu:master'
+override['exhibitor']['cli']['s3region'] = 'eu-west-1'
+#override['zookeeper']['install_dir'] = ""
