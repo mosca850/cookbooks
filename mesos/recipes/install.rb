@@ -84,8 +84,7 @@ template 'mesos-slave-init' do
   variables(name:    'mesos-slave',
             wrapper: '/etc/mesos-chef/mesos-slave')
 end
-include_recipe 'exhibitor::default'
-include_recipe 'exhibitor::service'
+
 # Reload systemd on template change
 
 execute 'systemctl-daemon-reload' do

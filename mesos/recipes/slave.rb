@@ -2,7 +2,6 @@ class Chef::Recipe
   include MesosHelper
 end
 
-node.override['exhibitor']['cli']['s3config'] = node['exhibitor']['cli']['s3config']+'slave'
 include_recipe 'mesos::install'
 
 # Mesos configuration validation
