@@ -81,7 +81,6 @@ default['mesos']['zookeeper_path']                      = 'mesos'
 default['mesos']['zookeeper_exhibitor_discovery']       = true
 
 # Netflix Exhibitor ZooKeeper ensemble url.
-default['mesos']['zookeeper_exhibitor_url']             = "http://internal-exhibitor-680464962.eu-west-1.elb.amazonaws.com:8080"
 override['exhibitor']['cli']['configtype'] = 's3'
 override['exhibitor']['cli']['s3config'] = 'tt-mesos-cluster-ventu:master'
 override['exhibitor']['cli']['s3region'] = 'eu-west-1'
