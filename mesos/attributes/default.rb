@@ -85,4 +85,7 @@ default['mesos']['zookeeper_exhibitor_url']             = nil
 override['exhibitor']['cli']['configtype'] = 's3'
 override['exhibitor']['cli']['s3config'] = 'tt-mesos-cluster-ventu:master'
 override['exhibitor']['cli']['s3region'] = 'eu-west-1'
+override[:zookeeper][:version] = '3.4.6'
+override[:zookeeper][:mirror] = 'http://www.eu.apache.org/dist/zookeeper/'
 #override['zookeeper']['install_dir'] = ""
+
