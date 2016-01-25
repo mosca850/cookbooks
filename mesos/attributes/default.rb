@@ -39,6 +39,7 @@ default['mesos']['master']['flags']['log_dir']       = '/var/log/mesos'
 default['mesos']['master']['flags']['logging_level'] = 'INFO'
 default['mesos']['master']['flags']['cluster']       = 'MyMesosCluster'
 default['mesos']['master']['flags']['work_dir']      = '/tmp/mesos'
+default['mesos']['master']['flags']['quorum']        = 1
 
 #
 # Mesos SLAVE configuration
