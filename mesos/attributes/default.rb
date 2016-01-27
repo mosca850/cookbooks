@@ -22,7 +22,12 @@ default['mesos']['init']       = case node['platform']
 #
 # Mesos MASTER configuration
 #
-
+default['mesos']['marathon']['env']['ULIMIT']         = '-n 16384'
+default['mesos']['marathon']['bin']                   = '/usr/bin/marathon'
+default['mesos']['marathon']['syslog']                = '/var/log/marathon'
+default['mesos']['marathon']['flags']['http_port']    = 5050
+default['mesos']['marathon']['flags']['master']       = 'zk://localhost:2181/mesos'
+default['mesos']['marathon']['flags']['zk']       = 'zk://localhost:2181/marathon'
 # Mesos master binary location.
 default['mesos']['master']['bin']                   = '/usr/sbin/mesos-master'
 
