@@ -42,6 +42,7 @@ when 'rhel'
         .version.to_s
     }
   end
+
 end
 
 #

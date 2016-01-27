@@ -40,6 +40,7 @@ default['mesos']['master']['flags']['logging_level'] = 'INFO'
 default['mesos']['master']['flags']['cluster']       = 'MyMesosCluster'
 default['mesos']['master']['flags']['work_dir']      = '/tmp/mesos'
 default['mesos']['master']['flags']['quorum']        = 1
+default['mesos']['master']['flags']['ip']            = node['ipaddress']
 
 #
 # Mesos SLAVE configuration
@@ -61,10 +62,10 @@ default['mesos']['slave']['flags']['log_dir']       = '/var/log/mesos'
 default['mesos']['slave']['flags']['logging_level'] = 'INFO'
 default['mesos']['slave']['flags']['work_dir']      = '/tmp/mesos'
 default['mesos']['slave']['flags']['isolation']     = 'posix/cpu,posix/mem'
-default['mesos']['slave']['flags']['master']        = 'localhost:5050'
+# default['mesos']['slave']['flags']['master']        = 'localhost:5050'
 default['mesos']['slave']['flags']['strict']        = true
 default['mesos']['slave']['flags']['recover']       = 'reconnect'
-
+  
 # Workaround for setting default cgroups hierarchy root
 if node['mesos']['init'] == 'systemd'
   default['mesos']['slave']['flags']['cgroups_hierarchy'] = '/sys/fs/cgroup'

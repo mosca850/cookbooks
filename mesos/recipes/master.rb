@@ -23,6 +23,36 @@ ruby_block 'mesos-master-configuration-validation' do
     end
   end
 end
+# Marathon install
+package 'marathon' do
+  action :install
+end
+template 'marathon-init' do
+  case node['mesos']['init']
+  when 'systemd'
+    path '/etc/systemd/system/marathon.service'
+    source 'systemd.erb'
+  when 'sysvinit_debian'
+    mode 0755
+    path '/etc/init.d/mesos-slave'
+    source 'sysvinit_debian.erb'
+  when 'upstart'
+    path '/etc/init/mesos-slave.conf'
+    source 'upstart.erb'
+  end
+  variables(name:    'marathon',
+            wrapper: '/etc/marathon-chef/marathon')
+end
+# case node['platform_family']
+# when 'debian'
+#   package 'marathon' do
+#     action :install
+#   end
+# when 'rhel'
+#   yum_package 'marathon' do
+#     action :install
+#   end
+# end
 
 # ZooKeeper Exhibitor discovery
 if node['mesos']['zookeeper_exhibitor_discovery'] && node['mesos']['zookeeper_exhibitor_url']
@@ -48,6 +78,18 @@ template 'mesos-master-wrapper' do
             syslog: node['mesos']['master']['syslog'])
 end
 
+template 'marathon-wrapper' do
+  path '/etc/marathon-chef/marathon'
+  owner 'root'
+  group 'root'
+  mode '0755'
+  source 'wrapper.erb'
+  variables(env:    node['mesos']['marathon']['env'],
+            bin:    node['mesos']['marathon']['bin'],
+            flags:  node['mesos']['marathon']['flags'],
+            syslog: node['mesos']['marathon']['syslog'])
+end
+
 # Mesos master service definition
 service 'mesos-master' do
   case node['mesos']['init']
@@ -63,3 +105,20 @@ service 'mesos-master' do
   subscribes :restart, 'template[mesos-master-wrapper]'
   action [:enable, :start]
 end
+
+service 'marathon' do
+  case node['mesos']['init']
+  when 'systemd'
+    provider Chef::Provider::Service::Systemd
+  when 'sysvinit_debian'
+    provider Chef::Provider::Service::Init::Debian
+  when 'upstart'
+    provider Chef::Provider::Service::Upstart
+  end
+  supports status: true, restart: true
+  subscribes :restart, 'template[marathon-init]'
+  subscribes :restart, 'template[marathon-wrapper]'
+  action [:enable, :start]
+end
+
+
