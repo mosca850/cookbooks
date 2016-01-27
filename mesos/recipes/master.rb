@@ -65,6 +65,7 @@ if node['mesos']['zookeeper_exhibitor_discovery'] && node['mesos']['zookeeper_ex
   node.override['mesos']['master']['flags']['zk'] = 'zk://' + zk_nodes['servers'].sort.map { |s| "#{s}:#{zk_nodes['port']}" }.join(',') + '/' + node['mesos']['zookeeper_path']
 end
 
+directory '/etc/marathon-chef'
 # Mesos master configuration wrapper
 template 'mesos-master-wrapper' do
   path '/etc/mesos-chef/mesos-master'

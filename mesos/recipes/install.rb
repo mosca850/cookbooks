@@ -22,7 +22,7 @@ when 'debian'
   package 'mesos' do
     action :install
     # --no-install-recommends to skip installing zk. unnecessary.
-    options '--no-install-recommends'
+    options '--no-install-recommends --force-yes'
     # Glob is necessary to select the deb version string
     version "#{node['mesos']['version']}*"
   end
