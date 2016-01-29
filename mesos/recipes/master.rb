@@ -34,10 +34,10 @@ template 'marathon-init' do
     source 'systemd.erb'
   when 'sysvinit_debian'
     mode 0755
-    path '/etc/init.d/mesos-slave'
+    path '/etc/init.d/marathon-slave'
     source 'sysvinit_debian.erb'
   when 'upstart'
-    path '/etc/init/mesos-slave.conf'
+    path '/etc/init/marathon.conf'
     source 'upstart.erb'
   end
   variables(name:    'marathon',
