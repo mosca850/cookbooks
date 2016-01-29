@@ -68,6 +68,7 @@ default['mesos']['slave']['flags']['isolation']     = 'posix/cpu,posix/mem'
 # default['mesos']['slave']['flags']['master']        = 'localhost:5050'
 default['mesos']['slave']['flags']['strict']        = true
 default['mesos']['slave']['flags']['recover']       = 'reconnect'
+default['mesos']['slave']['flags']['containerizers'] = 'docker,mesos'
   
 # Workaround for setting default cgroups hierarchy root
 if node['mesos']['init'] == 'systemd'

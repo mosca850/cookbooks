@@ -10,3 +10,4 @@ version          '0.1.0'
 end
 depends 'yum', '~> 3.0'
 depends 'exhibitor'
+depends 'docker'

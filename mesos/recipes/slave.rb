@@ -3,7 +3,6 @@ class Chef::Recipe
 end
 
 include_recipe 'mesos::install'
-
 # Mesos configuration validation
 ruby_block 'mesos-slave-configuration-validation' do
   block do
@@ -21,7 +20,9 @@ ruby_block 'mesos-slave-configuration-validation' do
     end
   end
 end
-
+package 'docker' do
+  action :install
+end
 # ZooKeeper Exhibitor discovery
 if node['mesos']['zookeeper_exhibitor_discovery'] && node['mesos']['zookeeper_exhibitor_url']
   zk_nodes = MesosHelper.discover_zookeepers_with_retry(node['mesos']['zookeeper_exhibitor_url'])
