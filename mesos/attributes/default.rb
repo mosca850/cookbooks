@@ -1,6 +1,6 @@
 
 # Default Java version
-default['java']['jdk_version'] = '7'
+default['java']['jdk_version'] = '8'
 
 # Use Mesosphere repo
 default['mesos']['repo']       = true

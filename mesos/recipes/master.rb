@@ -63,8 +63,9 @@ if node['mesos']['zookeeper_exhibitor_discovery'] && node['mesos']['zookeeper_ex
   end
 
   node.override['mesos']['master']['flags']['zk'] = 'zk://' + zk_nodes['servers'].sort.map { |s| "#{s}:#{zk_nodes['port']}" }.join(',') + '/' + node['mesos']['zookeeper_path']
+  node.override['mesos']['marathon']['flags']['zk'] = 'zk://' + zk_nodes['servers'].sort.map { |s| "#{s}:#{zk_nodes['port']}" }.join(',') + '/mesos'
+  node.override['mesos']['marathon']['flags']['marathon'] = 'zk://' + zk_nodes['servers'].sort.map { |s| "#{s}:#{zk_nodes['port']}" }.join(',') + '/marathon'
 end
-
 directory '/etc/marathon-chef'
 # Mesos master configuration wrapper
 template 'mesos-master-wrapper' do
@@ -84,7 +85,7 @@ template 'marathon-wrapper' do
   owner 'root'
   group 'root'
   mode '0755'
-  source 'wrapper.erb'
+  source 'wrapper_def.erb'
   variables(env:    node['mesos']['marathon']['env'],
             bin:    node['mesos']['marathon']['bin'],
             flags:  node['mesos']['marathon']['flags'],
