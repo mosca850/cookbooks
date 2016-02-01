@@ -42,7 +42,7 @@ default['mesos']['master']['flags']['log_dir']       = '/var/log/mesos'
 default['mesos']['master']['flags']['logging_level'] = 'INFO'
 default['mesos']['master']['flags']['cluster']       = 'MyMesosCluster'
 default['mesos']['master']['flags']['work_dir']      = '/tmp/mesos'
-default['mesos']['master']['flags']['quorum']        = 1
+default['mesos']['master']['flags']['quorum']        = 2
 default['mesos']['master']['flags']['ip']            = node['ipaddress']
 
 #
@@ -76,6 +76,8 @@ if node['mesos']['init'] == 'systemd'
 else
   default['mesos']['slave']['flags']['cgroups_hierarchy'] = '/cgroup'
 end
+
+default['mesos']['slave']['flags']['ip']            = node['ipaddress']
 
 # Use the following options if you are using Exhibitor to manage Zookeeper
 # in your environment.

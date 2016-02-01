@@ -62,3 +62,6 @@ service 'mesos-slave' do
   subscribes :restart, 'template[mesos-slave-wrapper]'
   action [:enable, :start]
 end
+reboot 'app_requires_reboot' do
+  action :request_reboot
+end
