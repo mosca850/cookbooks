@@ -20,9 +20,7 @@ ruby_block 'mesos-slave-configuration-validation' do
     end
   end
 end
-package 'docker' do
-  action :install
-end
+
 # ZooKeeper Exhibitor discovery
 if node['mesos']['zookeeper_exhibitor_discovery'] && node['mesos']['zookeeper_exhibitor_url']
   zk_nodes = MesosHelper.discover_zookeepers_with_retry(node['mesos']['zookeeper_exhibitor_url'])
@@ -62,6 +60,11 @@ service 'mesos-slave' do
   subscribes :restart, 'template[mesos-slave-wrapper]'
   action [:enable, :start]
 end
-reboot 'app_requires_reboot' do
-  action :request_reboot
+package 'docker' do
+  action :install
+  notifies :run, 'execute[app_requires_reboot]', :immediately
+end
+execute 'app_requires_reboot' do
+  command "shutdown -r now"
+  action :nothing
 end
